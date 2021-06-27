@@ -106,3 +106,46 @@ resource "azurerm_application_security_group" "backend_asg" {
   location            = var.location
   resource_group_name = azurerm_resource_group.boundary.name
 }
+
+
+data "azurerm_resource_group" "rg-aip-vpn-hub" {
+  //provider = azurerm.aip-azure-hub
+  name = "ExpressRouteGateway"
+}
+
+
+data "azurerm_virtual_network" "vnet-aip-vpn-hub" {
+  //provider            = azurerm.aip-azure-hub
+  name                = "AIP-VPN-Hub"
+  resource_group_name = "ExpressRouteGateway"
+}
+
+
+resource "azurerm_virtual_network_peering" "boundary-to-hub-peer" {
+  //provider = azurerm.engineering-prod
+  name                      = "aip-peering-from-vnet-boundary-to-AIP-VPN-Hub"
+  resource_group_name       = azurerm_resource_group.boundary.name
+  virtual_network_name      = module.vnet.vnet_name
+  remote_virtual_network_id = data.azurerm_virtual_network.vnet-aip-vpn-hub.id
+
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+  allow_gateway_transit        = false
+  use_remote_gateways          = true
+  //depends_on                   = [azurerm_virtual_network.vnet-engineering-prod, data.azurerm_virtual_network.vnet-aip-vpn-hub, data.azurerm_virtual_network_gateway.gw-vnet-aip-vpn-hub]
+  depends_on = [module.vnet.vnet_name, data.azurerm_virtual_network.vnet-aip-vpn-hub]
+}
+
+resource "azurerm_virtual_network_peering" "hub-to-boundary-peer" {
+  //provider                     = azurerm.aip-azure-hub
+  name                         = "aip-peering-from-AIP-VPN-Hub-to-vnet-boundary"
+  resource_group_name          = data.azurerm_resource_group.rg-aip-vpn-hub.name
+  virtual_network_name         = data.azurerm_virtual_network.vnet-aip-vpn-hub.name
+  remote_virtual_network_id    = module.vnet.vnet_id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+  allow_gateway_transit        = true
+  use_remote_gateways          = false
+  //depends_on                   = [azurerm_virtual_network.vnet-engineering-prod, data.azurerm_virtual_network.vnet-aip-vpn-hub, data.azurerm_virtual_network_gateway.gw-vnet-aip-vpn-hub]
+  depends_on = [module.vnet.vnet_name, data.azurerm_virtual_network.vnet-aip-vpn-hub]
+}

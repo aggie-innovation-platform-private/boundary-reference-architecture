@@ -1,5 +1,5 @@
 variable "url" {
-  default = "http://127.0.0.1:9200"
+  default = "https://boundary-3f2b995a.southcentralus.cloudapp.azure.com:9200"
 }
 
 variable "backend_team" {
