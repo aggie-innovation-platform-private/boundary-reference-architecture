@@ -1,31 +1,28 @@
 variable "url" {
-  default = "https://boundary-3f2b995a.southcentralus.cloudapp.azure.com:9200"
+  default = "https://boundary-a117e800.southcentralus.cloudapp.azure.com:9200"
 }
 
 variable "backend_team" {
   type = set(string)
   default = [
-    "jim",
-    "mike",
-    "todd",
+    "soren-back",
+    "amarcontell-back",
   ]
 }
 
 variable "frontend_team" {
   type = set(string)
   default = [
-    "randy",
-    "susmitha",
+    "soren-front",
+    "amarcontell-front",
   ]
 }
 
 variable "leadership_team" {
   type = set(string)
   default = [
-    "jeff",
-    "pete",
-    "jonathan",
-    "malnick"
+    "soren",
+    "amarcontell",
   ]
 }
 
@@ -34,10 +31,12 @@ variable "target_ips" {
   default = []
 }
 
-variable "tenant_id" {}
+// Moved to secrets.tf that isn't sync'd to github
 
-variable "vault_name" {}
+//variable "tenant_id" {}
 
-variable "client_secret" {}
+//variable "vault_name" {}
 
-variable "client_id" {}
+//variable "client_secret" {}
+
+//variable "client_id" {}

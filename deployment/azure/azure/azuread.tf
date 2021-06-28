@@ -27,5 +27,5 @@ resource "azuread_service_principal" "recovery_sp" {
 resource "azuread_service_principal_password" "recovery_sp" {
   service_principal_id = azuread_service_principal.recovery_sp.id
   value                = random_password.recovery_sp.result
-  end_date_relative    = "1h"
+  end_date_relative    = "24h"
 }
