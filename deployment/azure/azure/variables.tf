@@ -37,7 +37,7 @@ variable "controller_vm_size" {
 
 variable "controller_vm_count" {
   type    = number
-  default = 1
+  default = 2
 }
 
 variable "worker_vm_size" {
@@ -47,7 +47,7 @@ variable "worker_vm_size" {
 
 variable "backend_vm_count" {
   type    = number
-  default = 1
+  default = 2
 }
 
 variable "backend_vm_size" {
@@ -57,7 +57,7 @@ variable "backend_vm_size" {
 
 variable "worker_vm_count" {
   type    = number
-  default = 1
+  default = 2
 }
 
 variable "db_username" {

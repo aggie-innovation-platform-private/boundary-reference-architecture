@@ -28,7 +28,7 @@ resource "boundary_account" "backend_user_acct" {
   description    = "User account for ${each.key}"
   type           = "password"
   login_name     = lower(each.key)
-  password       = "foofoofoo"
+  password       = "foofoofoo1"
   auth_method_id = boundary_auth_method.password.id
 }
 
@@ -38,7 +38,7 @@ resource "boundary_account" "frontend_user_acct" {
   description    = "User account for ${each.key}"
   type           = "password"
   login_name     = lower(each.key)
-  password       = "foofoofoo"
+  password       = "foofoofoo1"
   auth_method_id = boundary_auth_method.password.id
 }
 
@@ -48,7 +48,7 @@ resource "boundary_account" "leadership_user_acct" {
   description    = "User account for ${each.key}"
   type           = "password"
   login_name     = lower(each.key)
-  password       = "foofoofoo"
+  password       = "foofoofoo1"
   auth_method_id = boundary_auth_method.password.id
 }
 
